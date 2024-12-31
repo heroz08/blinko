@@ -136,7 +136,10 @@ export const userRouter = router({
             return true
           }
         }
-      })
+      },
+          {
+           timeout: 10000
+          })
     }),
   regenToken: authProcedure
     .meta({ openapi: { method: 'POST', path: '/v1/user/regen-token', summary: 'Regen token', tags: ['User'] } })
