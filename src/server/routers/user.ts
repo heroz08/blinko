@@ -138,7 +138,7 @@ export const userRouter = router({
         }
       },
           {
-           timeout: 10000
+           timeout: 30000
           })
     }),
   regenToken: authProcedure
