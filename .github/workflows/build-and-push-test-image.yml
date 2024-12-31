@@ -44,8 +44,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            blinkospace/blinko
-            ghcr.io/blinko-space/blinko
+            hzhyang/blinko
+            ghcr.io/hzhyang/blinko
           tags: |
             type=raw,value=${{ env.VERSION }}
           flavor: |
