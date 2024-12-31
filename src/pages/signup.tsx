@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Button, Input, Link } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
@@ -17,6 +17,7 @@ export default function Component() {
   const router = useRouter()
   const [isVisible, setIsVisible] = React.useState(false);
   const [isConfirmVisible, setIsConfirmVisible] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
   const toggleConfirmVisibility = () => setIsConfirmVisible(!isConfirmVisible);
@@ -107,6 +108,7 @@ export default function Component() {
                 return RootStore.Get(ToastPlugin).error(t('the-two-passwords-are-inconsistent'))
               }
               try {
+                setIsLoading(true);
                 await api.users.register.mutate({ name: user, password })
                 RootStore.Get(ToastPlugin).success(t('create-successfully-is-about-to-jump-to-the-login'))
                 setTimeout(() => {
@@ -114,8 +116,11 @@ export default function Component() {
                 }, 1000)
               } catch (error) {
                 return RootStore.Get(ToastPlugin).error(error.message)
+              } finally {
+                setIsLoading(false);
               }
-            }}>
+            }}
+                    isLoading={isLoading}>
               {t('sign-up')}
             </Button>
           </form>
